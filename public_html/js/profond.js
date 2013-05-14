@@ -12,13 +12,11 @@ function webGLStart() {
             var json = JSON.parse(text);
             json.colors = [1, 0.5, 0.5, 1];
             var teapot = new PhiloGL.O3D.Model(json);
-            //var teapot2 = new PhiloGL.O3D.Model(json);
-            animateObject(teapot, 0);
-           // animateObject(teapot2, 1);
+            createApp(teapot);
         }
     }).send();
 
-    function animateObject(teapot, glLines) {
+    function createApp(model) {
         //Création de l'application
         PhiloGL('canvas', {
             program: {
@@ -63,46 +61,76 @@ function webGLStart() {
              */
             events: {
                 onDragStart: function(e) {
-                    this.pos = {
+                    e.stop();
+                    this.campos = {
                         x: e.x,
                         y: e.y
                     };
                 },
                 onDragMove: function(e) {
-                    var z = this.camera.position.z,
-                            sign = Math.abs(z) / z,
-                            pos = this.pos;
+                    e.stop();
+                    if (this.campos == "undefined") {
+                        this.campos = {
+                            x: e.x,
+                            y: e.y
+                        };
+                    }
 
-                    this.camera.rotation.y += -(pos.x - e.x) / 100;
-                    this.camera.rotation.x += sign * (pos.y - e.y) / 100;
+                    this.camera.target.y += ((this.campos.y - e.y) / 20);
+                    this.camera.target.x += -((this.campos.x - e.x) / 20);
                     this.camera.update();
-                    pos.x = e.x;
-                    pos.y = e.y;
+                    this.campos.x = e.x;
+                    this.campos.y = e.y;
+                    console.debug(this.camera);
                 },
                 onTouchStart: function(e) {
                     e.stop();
-                    this.pos = {
+                    this.campos = {
                         x: e.x,
                         y: e.y
                     };
                 },
                 onTouchMove: function(e) {
                     e.stop();
-                    var z = this.camera.position.z,
-                            sign = Math.abs(z) / z,
-                            pos = this.pos;
 
-                    this.camera.rotation.y += -(pos.x - e.x) / 100;
-                    this.camera.rotation.x += sign * (pos.y - e.y) / 100;
-                    this.camera.update();
-                    pos.x = e.x;
-                    pos.y = e.y;
+
                 },
                 onMouseWheel: function(e) {
                     e.stop();
-                    var camera = this.camera;
-                    camera.position.z += e.wheel;
-                    camera.update();
+
+                },
+                onKeyDown: function(e) {
+                    if (e.key == "z") {
+                        this.camera.target.z += 5;
+                        this.camera.position.z += 5;
+                        this.camera.update();
+                    }
+                    if (e.key == "s") {
+                        this.camera.target.z -= 5;
+                        this.camera.position.z -= 5;
+                        this.camera.update();
+                    }
+                    if (e.key == "q") {
+                        this.camera.target.x += 5;
+                        this.camera.position.x += 5;
+                        this.camera.update();
+                    }
+                    if (e.key == "d") {
+                        this.camera.target.x -= 5;
+                        this.camera.position.x -= 5;
+                        this.camera.update();
+                    }
+                    console.debug(e);
+                    if (e.key == "space") {
+                        this.camera.target.y += 5;
+                        this.camera.position.y += 5;
+                        this.camera.update();
+                    }
+                    if (e.shift == true) {
+                        this.camera.target.y -= 5;
+                        this.camera.position.y -= 5;
+                        this.camera.update();
+                    }
                 }
             },
             /*
@@ -113,12 +141,9 @@ function webGLStart() {
                         scene = app.scene,
                         canvas = app.canvas,
                         theta = 0;
-                if(glLines == 0){
-                    teapot.drawType = gl.LINES;
-                }else{
-                    teapot.drawType = TRIANGLES;
-                }
-                
+
+                model.drawType = gl.LINES;
+
                 //Réglage
                 gl.clearColor(0.0, 0.0, 0.0, 1.0);
                 gl.clearDepth(1.0);
@@ -126,10 +151,7 @@ function webGLStart() {
                 gl.depthFunc(gl.LEQUAL);
                 gl.viewport(0, 0, +canvas.width, +canvas.height);
                 //Ajout de la théliere dans la scène
-
-
-                
-                scene.add(teapot);
+                scene.add(model);
                 //Aperçu
                 draw();
 
@@ -137,7 +159,7 @@ function webGLStart() {
                 function draw() {
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
                     theta += 0.01;
-                    teapot.update();
+                    model.update();
                     scene.render();
                     PhiloGL.Fx.requestAnimationFrame(draw);
                 }
