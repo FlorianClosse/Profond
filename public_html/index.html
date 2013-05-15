@@ -10,8 +10,8 @@ and open the template in the editor.
 
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen" />
 
-        <!--<script type="text/javascript" src="philogl/PhiloGL.js"></script>-->
-        <!--<script type="text/javascript" src="js/profond.js"></script>-->
+        <!--        <script type="text/javascript" src="philogl/PhiloGL.js"></script>
+                <script type="text/javascript" src="js/profond.js"></script>-->
         <script src="three/three.js"></script>
         <script src="js/jquery-1.9.1.js"></script>
         <script src="three/TrackballControls.js"></script>
@@ -21,15 +21,39 @@ and open the template in the editor.
 
 
     <body>
-        <!--<canvas id="canvas" style="border: none;" width="1496" height="1024"></canvas>-->
+        <!--        <canvas id="canvas" style="border: none;" width="1496" height="1024"></canvas>-->
 
         <script>
             scene = new THREE.Scene();
 
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.set(0, 0, 20);
 
-            cameraControls = new THREE.TrackballControls(camera);
+            var debugaxis = function(axisLength) {
+                //Shorten the vertex function
+                function v(x, y, z) {
+                    return new THREE.Vertex(new THREE.Vector3(x, y, z));
+                }
+
+                //Create axis (point1, point2, colour)
+                function createAxis(p1, p2, color) {
+                    var line, lineGeometry = new THREE.Geometry(),
+                            lineMat = new THREE.LineBasicMaterial({color: color, lineWidth: 6});
+                    lineGeometry.vertices.push(p1, p2);
+                    line = new THREE.Line(lineGeometry, lineMat);
+                    scene.add(line);
+                }
+
+                createAxis(v(-20, 0, 0), v(20, 0, 0), 0xFF0000);
+                createAxis(v(0, -20, 0), v(0,20, 0), 0x00FF00);
+                createAxis(v(0, 0, -20), v(0, 0, 20), 0x0000FF);
+            };
+
+    //To use enter the axis length
+            debugaxis(100);
+
+
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.set(0, 0, 50);
 
 
             var renderer = new THREE.WebGLRenderer();
@@ -63,7 +87,7 @@ and open the template in the editor.
 
                 mesh = new THREE.Mesh(geometry);
                 scene.add(mesh, camera);
-
+                cameraControls = new THREE.TrackballControls(camera);
                 render();
 
             });
