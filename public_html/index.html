@@ -8,39 +8,34 @@ and open the template in the editor.
     <head>
         <title>Profond</title>
 
-        <style type="text/css">
-            #loadingtext {
-                position:absolute;
-                top:250px;
-                left:150px;
-                font-size:2em;
-                color: white;
-            }
-        </style>
-
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen" />
 
-        <!--        <script type="text/javascript" src="philogl/PhiloGL.js"></script>-->
+        <!--<script type="text/javascript" src="philogl/PhiloGL.js"></script>-->
         <!--<script type="text/javascript" src="js/profond.js"></script>-->
         <script src="three/three.js"></script>
         <script src="js/jquery-1.9.1.js"></script>
+        <script src="three/TrackballControls.js"></script>
+
     </head>
 
 
 
     <body>
         <!--<canvas id="canvas" style="border: none;" width="1496" height="1024"></canvas>-->
-        <script>
-            var scene = new THREE.Scene();
 
-            var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+        <script>
+            scene = new THREE.Scene();
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+            camera.position.set(0, 0, 20);
+
+            cameraControls = new THREE.TrackballControls(camera);
+
 
             var renderer = new THREE.WebGLRenderer();
-
             renderer.setSize(window.innerWidth, window.innerHeight);
 
             document.body.appendChild(renderer.domElement);
-
             var geometry = new THREE.Geometry()
 
             $.getJSON('Teapot.json', function(data) {
@@ -64,12 +59,24 @@ and open the template in the editor.
                     geometry.faces.push(new THREE.Face3(indices[i], indices[i + 1], indices[i + 2]));
                     i += 3;
                 }
-                camera.translateZ( 20 );
-                
+
+
                 mesh = new THREE.Mesh(geometry);
-                scene.add(mesh);
-                renderer.render(scene, camera);
+                scene.add(mesh, camera);
+
+                render();
+
             });
+
+            function render() {
+
+                requestAnimationFrame(render);
+
+                cameraControls.update();
+
+                renderer.render(scene, camera);
+
+            }
         </script>
     </body>
 
