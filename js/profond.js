@@ -56,7 +56,7 @@ function webGLStart() {
     $("#canvas-container").append(renderer.domElement)
     var geometry = new THREE.Geometry();
     console.log("test3");
-    $.getJSON('polyMesh_light.json.gz', function(data) {
+    $.getJSON('polyMesh_light.json', function(data) {
         console.log("test4");
         var items = [];
         console.debug(data);
@@ -68,7 +68,7 @@ function webGLStart() {
         //console.debug(vertices);
         while (i < vertices.length) {
             //Add Vertice att Geometry
-            geometry.vertices.push(new THREE.Vector3(vertices[i], vertices[i + 1], vertices[i + 2]));
+            geometry.vertices.push(new THREE.Vector3(vertices[i]*100, vertices[i + 1]*100, vertices[i + 2]*100));
             i += 3;
         }
         var i = 0;
