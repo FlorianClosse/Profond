@@ -1,7 +1,8 @@
 function webGLStart() {
-    console.log("test");
+    //console.log("test");
     scene = new THREE.Scene();
     var mesh;
+
 
 //    $.ajax("polyMesh_light.json", {
 //        "async": true,
@@ -22,7 +23,7 @@ function webGLStart() {
 //    });
 
     var debugaxis = function(axisLength) {
-        console.log("test2");
+        //console.log("test2");
         //Shorten the vertex function
         function v(x, y, z) {
             return new THREE.Vector3(x, y, z);
@@ -55,11 +56,11 @@ function webGLStart() {
 
     $("#canvas-container").append(renderer.domElement)
     var geometry = new THREE.Geometry();
-    console.log("test3");
-    $.getJSON('polyMesh_light.json', function(data) {
-        console.log("test4");
+    //console.log("test3");
+    $.getJSON('polyMesh.json', function(data) {
+        //console.log("test4");
         var items = [];
-        console.debug(data);
+        //console.debug(data);
         var vertices = {};
         var indices = {};
         vertices = data['vertices'];
@@ -68,7 +69,7 @@ function webGLStart() {
         //console.debug(vertices);
         while (i < vertices.length) {
             //Add Vertice att Geometry
-            geometry.vertices.push(new THREE.Vector3(vertices[i]*100, vertices[i + 1]*100, vertices[i + 2]*100));
+            geometry.vertices.push(new THREE.Vector3(vertices[i] * 100, vertices[i + 1] * 100, vertices[i + 2] * 100));
             i += 3;
         }
         var i = 0;
@@ -82,15 +83,16 @@ function webGLStart() {
 
 
 
+        var material0 = new THREE.MeshBasicMaterial({color: 0x808080,depthTest: true,depthWrite: true,wireframe: true});
+        //var material1 = new THREE.MeshBasicMaterial({color: 0x00FF00});
+        //var material2 = new THREE.MeshBasicMaterial({color: 0xFF0000});
+        console.debug(material0);
 
-        mesh = new THREE.Mesh(geometry);
-//        console.debug(mesh);
-//        mesh.geometry.colorsNeedUpdate = true;
-//        
-//        for (var i = 0; i < 10000; i++) {
-//            mesh.geometry.faces[i].copy = new THREE.Color("rgb(255,0,0)");
-//        }
 
+        console.debug(geometry);
+       
+        mesh = new THREE.Mesh(geometry,material0);
+        console.debug(mesh);
         scene.add(mesh, camera);
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
 
