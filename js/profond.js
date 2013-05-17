@@ -79,7 +79,7 @@ function webGLStart() {
             if (cpt_face >= 152395 && cpt_face < (20019 + 152395)) {
                 //Add Vertice att Geometry
                 face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-                face.color.setHex(0x404040);
+                face.color.setHex(0xeeeeee);
                 geometry.faces.push(face);
 
             }
@@ -87,6 +87,13 @@ function webGLStart() {
                 //Add Vertice att Geometry
                 face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
                 face.color.setHex(0x20FF00);
+                geometry.faces.push(face);
+
+            }
+            if (cpt_face >= 172470 && cpt_face < (612 + 172470)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0x2020FF);
                 geometry.faces.push(face);
 
             }
@@ -102,19 +109,20 @@ function webGLStart() {
         //console.log(vertices.length);
         geometry.computeFaceNormals();
 
-
-        var material0 = new THREE.MeshBasicMaterial({color: 0x808080, depthTest: true, depthWrite: true, wireframe: true, wireframeLinewidth: 1});
-        //var material1 = new THREE.MeshBasicMaterial({color: 0x00FF00});
-        //var material2 = new THREE.MeshBasicMaterial({color: 0xFF0000});
-        //console.debug(material0);
-
-
         //console.debug(geometry);
 
-        var material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.5, depthWrite: false});
+        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: false});
 
         mesh = new THREE.Mesh(geometry, material);
 
+        scene.fog = new THREE.Fog(0x000000, 1, 15000);
+
+        var light = new THREE.PointLight(0x444444);
+        light.position.set(50, 50, 50);
+        scene.add(light);
+
+        var light = new THREE.AmbientLight(0x555555);
+        scene.add(light);
 
         //console.debug(mesh);
         scene.add(mesh, camera);

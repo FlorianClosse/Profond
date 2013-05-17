@@ -13,7 +13,6 @@ function webGLStart(url, element, width, height) {
         var i = 0;
         var cpt_face = 0;
         var face;
-        var material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.5, depthWrite: false});
         var cameraControls;
         console.debug(data);
         vertices = data['vertices'];
@@ -25,16 +24,28 @@ function webGLStart(url, element, width, height) {
         var i = 0;
         while (i < indices.length) {
             if (cpt_face >= 152395 && cpt_face < (20019 + 152395)) {
+                //Add Vertice att Geometry
                 face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-                face.color.setHex(0x404040);
+                face.color.setHex(0xeeeeee);
                 geometry.faces.push(face);
+
             }
             if (cpt_face >= 172414 && cpt_face < (56 + 172414)) {
+                //Add Vertice att Geometry
                 face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
                 face.color.setHex(0x20FF00);
                 geometry.faces.push(face);
+
+            }
+            if (cpt_face >= 172470 && cpt_face < (612 + 172470)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0x2020FF);
+                geometry.faces.push(face);
+
             }
             if (cpt_face >= 173082 && cpt_face < (843 + 173082)) {
+                //Add Vertice att Geometry
                 face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
                 face.color.setHex(0xF02000);
                 geometry.faces.push(face);
@@ -45,6 +56,18 @@ function webGLStart(url, element, width, height) {
 
         geometry.computeFaceNormals();
 
+        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: false});
+
+        mesh = new THREE.Mesh(geometry, material);
+
+        scene.fog = new THREE.Fog(0x000000, 1, 15000);
+
+        var light = new THREE.PointLight(0x444444);
+        light.position.set(50, 50, 50);
+        scene.add(light);
+
+        var light = new THREE.AmbientLight(0x555555);
+        scene.add(light);
 
 
         mesh = new THREE.Mesh(geometry, material);

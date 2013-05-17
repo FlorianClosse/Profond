@@ -14,16 +14,13 @@ and open the template in the editor.
         <script src="js/jquery-1.9.1.js"></script>
         <script src="three/TrackballControls.js"></script>
 
-        <script src="js/profond.js"></script>
+        <script src="js/profond_Ui_Webgl.js"></script>
 
     </head>
 
 
-    <body onload="webGLStart();">
-        <div id='canvas-container'>
-
-        </div>
-<!--        <div id='canvas-container1'>
+    <body onload="">
+        <div id='canvas-container1'>
 
         </div>
         <div id='canvas-container2'>
@@ -31,7 +28,7 @@ and open the template in the editor.
         </div>
         <div id='canvas-container3'>
 
-        </div>
+        </div><!--
         <div id='canvas-container4'>
 
         </div>
@@ -48,15 +45,14 @@ and open the template in the editor.
 
         </div>-->
     </body>
-<!--    <script type='text/javascript'>
-//        webGLStart();
-//        webGLStart('polyMesh_light.json', $('#canvas-container1'), 500, 500);
-//        webGLStart('polyMesh.json', $('#canvas-container2'), 500, 500);
-//        webGLStart('polyMesh.json', $('#canvas-container3'), 500, 500);
+    <script type='text/javascript'>
+        webGLStart('polyMesh_light.json', $('#canvas-container1'), 500, 500);
+        webGLStart('polyMesh.json', $('#canvas-container2'), 500, 500);
+        webGLStart('polyMesh.json', $('#canvas-container3'), 500, 500);
 //        webGLStart('polyMesh.json', $('#canvas-container4'), 500, 500);
 //        webGLStart('polyMesh.json', $('#canvas-container5'), 500, 500);
 //        webGLStart('polyMesh.json', $('#canvas-container6'), 500, 500);
 //        webGLStart('polyMesh.json', $('#canvas-container7'), 500, 500);
 //        webGLStart('polyMesh.json', $('#canvas-container8'), 500, 500);
-    </script>-->
+    </script>
 </html>
