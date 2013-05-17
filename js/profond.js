@@ -4,6 +4,7 @@ function webGLStart() {
     var mesh;
 
 
+
 //    $.ajax("polyMesh_light.json", {
 //        "async": true,
 //        "timeout": 100000,
@@ -45,13 +46,11 @@ function webGLStart() {
 
     debugaxis(100);
 
-
-
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(0, 0, 50);
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.set(0, -100, 50);
 
     var renderer = new THREE.WebGLRenderer();
-    renderer.setSize(1600, 900);
+    renderer.setSize(2400, 1200);
 
 
     $("#canvas-container").append(renderer.domElement)
@@ -73,26 +72,51 @@ function webGLStart() {
             i += 3;
         }
         var i = 0;
+        var cpt_face = 0;
+        var face;
         //console.debug(vertices);
         while (i < indices.length) {
-            //Add Vertice att Geometry
-            geometry.faces.push(new THREE.Face3(indices[i], indices[i + 1], indices[i + 2]));
+            if (cpt_face >= 152395 && cpt_face < (20019 + 152395)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0x404040);
+                geometry.faces.push(face);
+
+            }
+            if (cpt_face >= 172414 && cpt_face < (56 + 172414)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0x20FF00);
+                geometry.faces.push(face);
+
+            }
+            if (cpt_face >= 173082 && cpt_face < (843 + 173082)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0xF02000);
+                geometry.faces.push(face);
+            }
             i += 3;
+            cpt_face++;
         }
         //console.log(vertices.length);
+        geometry.computeFaceNormals();
 
 
-
-        var material0 = new THREE.MeshBasicMaterial({color: 0x808080,depthTest: true,depthWrite: true,wireframe: true});
+        var material0 = new THREE.MeshBasicMaterial({color: 0x808080, depthTest: true, depthWrite: true, wireframe: true, wireframeLinewidth: 1});
         //var material1 = new THREE.MeshBasicMaterial({color: 0x00FF00});
         //var material2 = new THREE.MeshBasicMaterial({color: 0xFF0000});
-        console.debug(material0);
+        //console.debug(material0);
 
 
-        console.debug(geometry);
-       
-        mesh = new THREE.Mesh(geometry,material0);
-        console.debug(mesh);
+        //console.debug(geometry);
+
+        var material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.5, depthWrite: false});
+
+        mesh = new THREE.Mesh(geometry, material);
+
+
+        //console.debug(mesh);
         scene.add(mesh, camera);
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
 
@@ -102,6 +126,7 @@ function webGLStart() {
 
 
     function render() {
+        renderer.render(scene, camera);
         requestAnimationFrame(render);
 
         cameraControls.update();
