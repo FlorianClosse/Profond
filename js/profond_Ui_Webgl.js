@@ -1,5 +1,4 @@
 function webGLStart(url, element, width, height, depth) {
-
     $.getJSON(url, function(data) {
 
         var mesh;
