@@ -5,7 +5,7 @@ function webGLStart(url, element, width, height, depth) {
 
         var scene = new THREE.Scene();
 
-        var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+        var camera = new THREE.PerspectiveCamera(45, width / height, 1, 100000);
         camera.position.set(0, -100, 50);
 
         var renderer = new THREE.WebGLRenderer();
