@@ -106,6 +106,33 @@ function webGLStart(url, element, width, height) {
         mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh, camera);
 
+        /*
+         * TEST PARTICULE
+         */
+
+        // create the particle variables
+        var pMaterial = new THREE.ParticleBasicMaterial({
+            color: 0x0F0F0F,
+            size: 2,
+            opacity : 1,
+            map: THREE.ImageUtils.loadTexture(
+                    "particle.png"
+                    ),
+            blending: THREE.AdditiveBlending,
+            transparent: true
+        });
+
+
+        /*
+         * FIN TEST PARTICULE
+         */
+
+        mesh = new THREE.ParticleSystem(geometry, pMaterial);
+        mesh.sortParticles = true;
+
+
+        scene.add(mesh, camera);
+
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
         render();
 
@@ -121,3 +148,4 @@ function webGLStart(url, element, width, height) {
 
 
 }
+

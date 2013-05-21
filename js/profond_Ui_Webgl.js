@@ -97,11 +97,45 @@ function webGLStart(url, element, width, height) {
         var light = new THREE.AmbientLight(0x555555);
         scene.add(light);
 
+        var stats = new Stats();
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.top = '0px';
+        element.append(stats.domElement);
 
         mesh = new THREE.Mesh(geometry, material);
 
         scene.add(mesh, camera);
 
+            /*
+         * PARTICLE
+         */
+        /*
+         * TEST PARTICULE
+         */
+
+//        // create the particle variables
+//        var pMaterial = new THREE.ParticleBasicMaterial({
+//            color: 0x0F0F0F,
+//            size: 0.3,
+//            opacity: 1,
+//            map: THREE.ImageUtils.loadTexture(
+//                    "particle.png"
+//                    ),
+//            blending: THREE.AdditiveBlending,
+//            transparent: true
+//        });
+//
+//
+//        /*
+//         * FIN TEST PARTICULE
+//         */
+//
+//        mesh2 = new THREE.ParticleSystem(geometry, pMaterial);
+//        mesh2.sortParticles = true;
+//
+//
+//        scene.add(mesh2);
+        
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
         render();
 
@@ -109,6 +143,7 @@ function webGLStart(url, element, width, height) {
             renderer.render(scene, camera);
             requestAnimationFrame(render);
             cameraControls.update();
+            stats.update();
         }
     });
 
