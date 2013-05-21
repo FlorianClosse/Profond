@@ -76,33 +76,38 @@ function webGLStart() {
         var face;
         //console.debug(vertices);
         while (i < indices.length) {
-            if (cpt_face >= 152395 && cpt_face < (20019 + 152395)) {
-                //Add Vertice att Geometry
-                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-                face.color.setHex(0xeeeeee);
-                geometry.faces.push(face);
-
-            }
-            if (cpt_face >= 172414 && cpt_face < (56 + 172414)) {
-                //Add Vertice att Geometry
-                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-                face.color.setHex(0x20FF00);
-                geometry.faces.push(face);
-
-            }
-            if (cpt_face >= 172470 && cpt_face < (612 + 172470)) {
-                //Add Vertice att Geometry
-                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-                face.color.setHex(0x2020FF);
-                geometry.faces.push(face);
-
-            }
-            if (cpt_face >= 173082 && cpt_face < (843 + 173082)) {
-                //Add Vertice att Geometry
-                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-                face.color.setHex(0xF02000);
-                geometry.faces.push(face);
-            }
+            
+            face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+            face.color.setHex(0xeeeeee);
+            geometry.faces.push(face);
+            
+//            if (cpt_face >= 152395 && cpt_face < (20019 + 152395)) {
+//                //Add Vertice att Geometry
+//                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+//                face.color.setHex(0xeeeeee);
+//                geometry.faces.push(face);
+//
+//            }
+//            if (cpt_face >= 172414 && cpt_face < (56 + 172414)) {
+//                //Add Vertice att Geometry
+//                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+//                face.color.setHex(0x20FF00);
+//                geometry.faces.push(face);
+//
+//            }
+//            if (cpt_face >= 172470 && cpt_face < (612 + 172470)) {
+//                //Add Vertice att Geometry
+//                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+//                face.color.setHex(0x2020FF);
+//                geometry.faces.push(face);
+//
+//            }
+//            if (cpt_face >= 173082 && cpt_face < (843 + 173082)) {
+//                //Add Vertice att Geometry
+//                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+//                face.color.setHex(0xF02000);
+//                geometry.faces.push(face);
+//            }
             i += 3;
             cpt_face++;
         }
