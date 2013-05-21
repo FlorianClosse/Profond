@@ -85,7 +85,7 @@ function webGLStart(url, element, width, height) {
 
         geometry.computeFaceNormals();
 
-        var material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: true, depthTest : true});
+        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: true, depthTest : true});
 
         mesh = new THREE.Mesh(geometry, material);
 

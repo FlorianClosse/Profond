@@ -31,7 +31,6 @@ function webGLStart(url, element, width, height) {
         indicesOutl = data['indicesOutl'];
         indicesAtmo = data['indicesAtmo'];
 
-
         while (i < vertices.length) {
             geometry.vertices.push(new THREE.Vector3(vertices[i] * 100, vertices[i + 1] * 100, vertices[i + 2] * 100));
             i += 3;
@@ -41,7 +40,7 @@ function webGLStart(url, element, width, height) {
         while (i < indices.length) {
 
             face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-            face.color.setHex(Math.random() * 0x0F0F0F);
+            face.color.setHex(0xeeeeee);
             geometry.faces.push(face);
 
 
@@ -53,7 +52,7 @@ function webGLStart(url, element, width, height) {
         while (i < indicesIntl.length) {
 
             face = new THREE.Face3(indicesIntl[i], indicesIntl[i + 1], indicesIntl[i + 2])
-            face.color.setHex(Math.random() * 0x0F0F0F);
+            face.color.setHex(0x20FF00);
             geometry.faces.push(face);
 
 
@@ -64,7 +63,7 @@ function webGLStart(url, element, width, height) {
         while (i < indicesOutl.length) {
 
             face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2])
-            face.color.setHex(Math.random() * 0x0F0F0F);
+            face.color.setHex(0x2020FF);
             geometry.faces.push(face);
 
 
@@ -75,9 +74,8 @@ function webGLStart(url, element, width, height) {
         while (i < indicesAtmo.length) {
 
             face = new THREE.Face3(indicesAtmo[i], indicesAtmo[i + 1], indicesAtmo[i + 2])
-            face.color.setHex(Math.random() * 0x0F0F0F);
+            face.color.setHex(0xF02000);
             geometry.faces.push(face);
-
 
             i += 3;
             cpt_face++;
@@ -85,7 +83,7 @@ function webGLStart(url, element, width, height) {
 
         geometry.computeFaceNormals();
 
-        var material = new THREE.MeshBasicMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: true, depthTest : true});
+        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 1, depthWrite: true});
 
         mesh = new THREE.Mesh(geometry, material);
 
@@ -104,8 +102,12 @@ function webGLStart(url, element, width, height) {
         element.append(stats.domElement);
 
         mesh = new THREE.Mesh(geometry, material);
+
         scene.add(mesh, camera);
 
+        /*
+         * PARTICLE
+         */
         /*
          * TEST PARTICULE
          */
@@ -113,8 +115,8 @@ function webGLStart(url, element, width, height) {
         // create the particle variables
         var pMaterial = new THREE.ParticleBasicMaterial({
             color: 0x0F0F0F,
-            size: 2,
-            opacity : 1,
+            size: 0.3,
+            opacity: 1,
             map: THREE.ImageUtils.loadTexture(
                     "particle.png"
                     ),
@@ -127,16 +129,15 @@ function webGLStart(url, element, width, height) {
          * FIN TEST PARTICULE
          */
 
-        mesh = new THREE.ParticleSystem(geometry, pMaterial);
-        mesh.sortParticles = true;
+        mesh2 = new THREE.ParticleSystem(geometry, pMaterial);
+        mesh2.sortParticles = true;
 
 
-        scene.add(mesh, camera);
+        scene.add(mesh2);
 
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
         render();
 
-        var t = 0;
         function render() {
             renderer.render(scene, camera);
             requestAnimationFrame(render);
