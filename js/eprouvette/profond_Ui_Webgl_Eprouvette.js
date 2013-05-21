@@ -41,7 +41,7 @@ function webGLStart(url, element, width, height) {
         while (i < indices.length) {
 
             face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-            face.color.setHex(0xeeeeee);
+            face.color.setHex(Math.random() * 0x0F0F0F);
             geometry.faces.push(face);
 
 
@@ -53,7 +53,7 @@ function webGLStart(url, element, width, height) {
         while (i < indicesIntl.length) {
 
             face = new THREE.Face3(indicesIntl[i], indicesIntl[i + 1], indicesIntl[i + 2])
-            face.color.setHex(0x20FF00);
+            face.color.setHex(Math.random() * 0x0F0F0F);
             geometry.faces.push(face);
 
 
@@ -64,7 +64,7 @@ function webGLStart(url, element, width, height) {
         while (i < indicesOutl.length) {
 
             face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2])
-            face.color.setHex(0x2020FF);
+            face.color.setHex(Math.random() * 0x0F0F0F);
             geometry.faces.push(face);
 
 
@@ -75,8 +75,9 @@ function webGLStart(url, element, width, height) {
         while (i < indicesAtmo.length) {
 
             face = new THREE.Face3(indicesAtmo[i], indicesAtmo[i + 1], indicesAtmo[i + 2])
-            face.color.setHex(0xF02000);
+            face.color.setHex(Math.random() * 0x0F0F0F);
             geometry.faces.push(face);
+
 
             i += 3;
             cpt_face++;
