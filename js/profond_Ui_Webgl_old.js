@@ -1,91 +1,62 @@
 function webGLStart(url, element, width, height) {
-
     $.getJSON(url, function(data) {
-
         var mesh;
-
         var scene = new THREE.Scene();
-
         var camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
         camera.position.set(0, -100, 50);
-
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         element.append(renderer.domElement);
-
         var geometry = new THREE.Geometry();
         var vertices = {};
         var indices = {};
-        var indicesIntl = {};
-        var indicesOutl = {};
-        var indicesAtmo = {};
-
         var i = 0;
         var cpt_face = 0;
         var face;
         var cameraControls;
-
-
+        console.debug(data);
         vertices = data['vertices'];
         indices = data['indices'];
-        indicesIntl = data['indicesIntl'];
-        indicesOutl = data['indicesOutl'];
-        indicesAtmo = data['indicesAtmo'];
-
         while (i < vertices.length) {
             geometry.vertices.push(new THREE.Vector3(vertices[i] * 100, vertices[i + 1] * 100, vertices[i + 2] * 100));
             i += 3;
         }
-
         var i = 0;
         while (i < indices.length) {
+            if (cpt_face >= 152395 && cpt_face < (20019 + 152395)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0xeeeeee);
+                geometry.faces.push(face);
 
-            face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
-            face.color.setHex(0xeeeeee);
-            geometry.faces.push(face);
+            }
+            if (cpt_face >= 172414 && cpt_face < (56 + 172414)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0x20FF00);
+                geometry.faces.push(face);
 
+            }
+            if (cpt_face >= 172470 && cpt_face < (612 + 172470)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0x2020FF);
+                geometry.faces.push(face);
 
-            i += 3;
-            cpt_face++;
-        }
-
-        var i = 0;
-        while (i < indicesIntl.length) {
-
-            face = new THREE.Face3(indicesIntl[i], indicesIntl[i + 1], indicesIntl[i + 2])
-            face.color.setHex(0x20FF00);
-            geometry.faces.push(face);
-
-
-            i += 3;
-            cpt_face++;
-        }
-        var i = 0;
-        while (i < indicesOutl.length) {
-
-            face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2])
-            face.color.setHex(0x2020FF);
-            geometry.faces.push(face);
-
-
-            i += 3;
-            cpt_face++;
-        }
-        var i = 0;
-        while (i < indicesAtmo.length) {
-
-            face = new THREE.Face3(indicesAtmo[i], indicesAtmo[i + 1], indicesAtmo[i + 2])
-            face.color.setHex(0xF02000);
-            geometry.faces.push(face);
-
-
+            }
+            if (cpt_face >= 173082 && cpt_face < (843 + 173082)) {
+                //Add Vertice att Geometry
+                face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
+                face.color.setHex(0xF02000);
+                geometry.faces.push(face);
+            }
             i += 3;
             cpt_face++;
         }
 
         geometry.computeFaceNormals();
 
-        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: true});
+        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: false});
 
         mesh = new THREE.Mesh(geometry, material);
 
