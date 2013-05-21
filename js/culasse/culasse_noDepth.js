@@ -1,4 +1,4 @@
-function webGLStart(url, element, width, height, depth) {
+function webGLStart(url, element, width, height) {
 
     $.getJSON(url, function(data) {
 
@@ -84,12 +84,7 @@ function webGLStart(url, element, width, height, depth) {
 
         geometry.computeFaceNormals();
 
-        if (depth == true) {
-            var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 1, depthWrite: true, depthTest: true});
-        } else {
-            var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: true, opacity: 0.6, depthWrite: true});
-        }
-
+        var material = new THREE.MeshLambertMaterial({vertexColors: THREE.FaceColors, side: THREE.DoubleSide, transparent: false, opacity: 1, depthWrite: true, depthTest: true});
 
         mesh = new THREE.Mesh(geometry, material);
 
@@ -111,36 +106,6 @@ function webGLStart(url, element, width, height, depth) {
 
         scene.add(mesh, camera);
 
-        /*
-         * PARTICLE
-         */
-        /*
-         * TEST PARTICULE
-         */
-
-//        // create the particle variables
-//        var pMaterial = new THREE.ParticleBasicMaterial({
-//            color: 0x0F0F0F,
-//            size: 0.3,
-//            opacity: 1,
-//            map: THREE.ImageUtils.loadTexture(
-//                    "particle.png"
-//                    ),
-//            blending: THREE.AdditiveBlending,
-//            transparent: true
-//        });
-//
-//
-//        /*
-//         * FIN TEST PARTICULE
-//         */
-//
-//        mesh2 = new THREE.ParticleSystem(geometry, pMaterial);
-//        mesh2.sortParticles = true;
-//
-//
-//        scene.add(mesh2);
-
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
         render();
 
@@ -151,8 +116,5 @@ function webGLStart(url, element, width, height, depth) {
             stats.update();
         }
     });
-
-
-
 }
 
