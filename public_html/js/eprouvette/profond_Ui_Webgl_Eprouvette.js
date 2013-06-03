@@ -74,13 +74,13 @@ function webGLStart(url, element, width, height, depth) {
             face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
             face.color.setHex(0x0000AA);
             v = geometry.faces.push(face);
-//
 
-            var check = document.createElement('input');
-            check.type = 'checkbox';
-            check.value = v;
-            cbh1.appendChild(check);
-          
+//            var check = document.createElement('input');
+//            check.type = 'checkbox';
+//            check.value = v;
+//            cbh1.appendChild(check);
+//            cb1.appendChild(document.createTextNode(v));
+
 
             i += 3;
             v += 1
@@ -188,21 +188,36 @@ function webGLStart(url, element, width, height, depth) {
         cameraControls = new THREE.TrackballControls(camera, renderer.domElement);
         render();
 
-
+        /*
+         * Render()
+         * Permet d'afficher le rendu dans l'interface
+         */
         function render() {
             renderer.render(scene, camera);
             requestAnimationFrame(render);
             cameraControls.update();
             stats.update();
         }
+        /*
+         * Fin Render()
+         */
 
+
+        /*
+         * Fonction CheckBox
+         * Permet de modifier la couleur des faces grâce à l'action d'une check box
+         */
         $(".cb input").click(function() {
-            if ($(this).attr('checked') == "checked") {
+            console.debug(this);
+            if ($(this).attr('profond-checked') == "checked") {
                 scene.__objects[0].geometry.faces[this.value].color.setHex($(this).attr('data-old-color'));
                 scene.__objects[0].geometry.colorsNeedUpdate = true;
                 scene.__objects[0].matrixAutoUpdate = false;
                 scene.__objects[0].updateMatrix();
+                $(this).attr('profond-checked', "undefined");
+                $(this).attr('data-old-color', "");
             } else {
+                $(this).attr('profond-checked', "checked");
                 $(this).attr('data-old-color', scene.__objects[0].geometry.faces[this.value].color.getHex());
                 scene.__objects[0].geometry.faces[this.value].color.setHex(0x8aFF8a);
                 scene.__objects[0].geometry.colorsNeedUpdate = true;
@@ -210,5 +225,8 @@ function webGLStart(url, element, width, height, depth) {
                 scene.__objects[0].updateMatrix();
             }
         });
+        /*
+         * Fin fonction CheckBox
+         */
     });
 }
