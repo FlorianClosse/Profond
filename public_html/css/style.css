@@ -1,0 +1,36 @@
+/* 
+    Document   : style
+    Created on : 6 mai 2013, 13:37:04
+    Author     : insset
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+}
+
+
+/*canvas {
+    -webkit-box-shadow: #333 0 0 10px;
+    -o-box-shadow: #333 0 0 10px;
+    -moz-box-shadow: #333 0 0 10px;
+    box-shadow: #333 0 0 10px;
+}*/
+
+
+
+canvas{
+    /*float:right;*/
+}
+
+.cb{
+    width : 80px;
+    height : 150px;
+    display: block;
+    overflow:hidden;
+    overflow-y: auto;
+}
