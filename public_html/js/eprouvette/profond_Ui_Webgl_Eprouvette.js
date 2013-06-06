@@ -6,13 +6,19 @@ function webGLStart(url, element, width, height, depth) {
 
         var scene = new THREE.Scene();
 
+        /*
+         * Modification de la taille du conteneur avec la taille demandé
+         */
         $(element).css({width: width, height: height});
 
+        /*
+         * Création du cadre du rendu
+         */
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         renderer.domElement.style.width = width;
         renderer.domElement.style.height = height;
-        renderer.domElement.style.border = "3px solid red";
+        //renderer.domElement.style.border = "3px solid red";
         element.append(renderer.domElement);
 
 
@@ -42,8 +48,14 @@ function webGLStart(url, element, width, height, depth) {
         var Ymax = vertices[1];
         var Zmax = vertices[2];
 
+        var tmp_indi;
+
         while (i < vertices.length) {
-            geometry.vertices.push(new THREE.Vector3(vertices[i] * 100, vertices[i + 1] * 100, vertices[i + 2] * 100));
+            tmp_indi = geometry.vertices.push(new THREE.Vector3(vertices[i] * 100, vertices[i + 1] * 100, vertices[i + 2] * 100));
+
+            //    geometry.vertices[tmp_indi].profond_faces = null;
+
+
             if (Xmin > vertices[i]) {
                 Xmin = vertices[i] * 100;
             }
@@ -105,6 +117,9 @@ function webGLStart(url, element, width, height, depth) {
             cbh2.appendChild(check);
             cb2.appendChild(document.createTextNode(v));
 
+//            geometry.vertices[indicesIntl[i]].profond_faces.push(v);
+//            geometry.vertices[indicesIntl[i +1]].profond_faces.push(v);
+//            geometry.vertices[indicesIntl[i +2]].profond_faces.push(v);
 
             i += 3;
             v += 1
@@ -118,10 +133,10 @@ function webGLStart(url, element, width, height, depth) {
         var cbh3 = document.getElementById('cb3');
         while (i < indicesOutl.length) {
 
-            face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2])
+            face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2]);
             face.color.setHex(0x00DD00);
             v = geometry.faces.push(face);
-
+            console.debug(new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2]));
 
             var check = document.createElement('input');
             check.type = 'checkbox';

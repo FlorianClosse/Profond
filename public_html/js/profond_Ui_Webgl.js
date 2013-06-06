@@ -7,8 +7,6 @@ function webGLStart(url, element, width, height, depth) {
 
         $(element).css({width: width, height: height});
 
-        
-
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         renderer.domElement.style.width = width;
