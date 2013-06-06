@@ -1,0 +1,32 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Profond</title>
+
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen" />
+
+        <script src="three/three.js"></script>
+        <script src="three/TrackballControls.js"></script>
+
+        <script src="js/stats.min.js"></script>
+        <script src="js/jquery-1.9.1.js"></script>
+        <script src="js/eprouvette/profond_Ui_Webgl_Eprouvette.js"></script>
+<!--        <script src="js/profond_Ui_Webgl.js"></script>-->
+
+
+    </head>
+
+    <body>
+        <div id='canvas-container1'>
+        </div>
+    </body>
+
+    <script type='text/javascript'>
+        webGLStart('polyMesh2.json', $('#canvas-container1'), 1900, 1100);
+    </script>
+</html>
