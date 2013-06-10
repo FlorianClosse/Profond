@@ -53,9 +53,6 @@ function webGLStart(url, element, width, height, depth) {
         while (i < vertices.length) {
             tmp_indi = geometry.vertices.push(new THREE.Vector3(vertices[i] * 100, vertices[i + 1] * 100, vertices[i + 2] * 100));
 
-            //    geometry.vertices[tmp_indi].profond_faces = null;
-
-
             if (Xmin > vertices[i]) {
                 Xmin = vertices[i] * 100;
             }
@@ -86,7 +83,7 @@ function webGLStart(url, element, width, height, depth) {
             face = new THREE.Face3(indices[i], indices[i + 1], indices[i + 2])
             face.color.setHex(0x0000AA);
             v = geometry.faces.push(face);
-
+            v = v - 1;
 //            var check = document.createElement('input');
 //            check.type = 'checkbox';
 //            check.value = v;
@@ -95,40 +92,54 @@ function webGLStart(url, element, width, height, depth) {
 
 
             i += 3;
-            v += 1
             cpt_face++;
         }
 
 
         var v = 0;
         var first = cpt_face;
-        tabface = {};
+        var listeFaceByVertex = [];
         var cbh2 = document.getElementById('cb2');
         var i = 0;
         while (i < indicesIntl.length) {
 
             face = new THREE.Face3(indicesIntl[i], indicesIntl[i + 1], indicesIntl[i + 2])
             face.color.setHex(0xEEEEEE);
-            v = geometry.faces.push(face);
 
+            v = geometry.faces.push(face);
+            v = v - 1;
             var check = document.createElement('input');
             check.type = 'checkbox';
             check.value = v;
             cbh2.appendChild(check);
             cb2.appendChild(document.createTextNode(v));
 
-//            geometry.vertices[indicesIntl[i]].profond_faces.push(v);
-//            geometry.vertices[indicesIntl[i +1]].profond_faces.push(v);
-//            geometry.vertices[indicesIntl[i +2]].profond_faces.push(v);
+            if (listeFaceByVertex[indicesIntl[i]] == undefined)
+            {
+                listeFaceByVertex[indicesIntl[i]] = [];
+            }
+            if (listeFaceByVertex[indicesIntl[i + 1]] == undefined)
+            {
+                listeFaceByVertex[indicesIntl[i + 1]] = [];
+            }
+            if (listeFaceByVertex[indicesIntl[i + 2]] == undefined)
+            {
+                listeFaceByVertex[indicesIntl[i + 2]] = [];
+            }
+
+            listeFaceByVertex[indicesIntl[i]].push(v);
+            listeFaceByVertex[indicesIntl[i + 1]].push(v);
+            listeFaceByVertex[indicesIntl[i + 2]].push(v);
 
             i += 3;
-            v += 1
             cpt_face++;
         }
 
+
+//        console.debug(listeFaceByVertex);
+
         var v = 0;
         var first = cpt_face;
-        tabface = {};
         var i = 0;
         var cbh3 = document.getElementById('cb3');
         while (i < indicesOutl.length) {
@@ -136,8 +147,8 @@ function webGLStart(url, element, width, height, depth) {
             face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2]);
             face.color.setHex(0x00DD00);
             v = geometry.faces.push(face);
-            console.debug(new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2]));
-
+//            console.debug(new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2]));
+            v = v - 1;
             var check = document.createElement('input');
             check.type = 'checkbox';
             check.value = v;
@@ -145,22 +156,21 @@ function webGLStart(url, element, width, height, depth) {
             cb3.appendChild(document.createTextNode(v));
 
 
+
             i += 3;
-            v += 1
             cpt_face++;
         }
 
         var v = 0;
         var first = cpt_face;
-        tabface = {};
         var i = 0;
         var cbh4 = document.getElementById('cb4');
         while (i < indicesAtmo.length) {
             face = new THREE.Face3(indicesAtmo[i], indicesAtmo[i + 1], indicesAtmo[i + 2])
             face.color.setHex(0xFF0000);
             v = geometry.faces.push(face);
-
-
+            var testfacesind = indicesAtmo[i];
+            v = v - 1;
             var check = document.createElement('input');
             check.type = 'checkbox';
             check.value = v;
@@ -223,7 +233,7 @@ function webGLStart(url, element, width, height, depth) {
          * Permet de modifier la couleur des faces grâce à l'action d'une check box
          */
         $(".cb input").click(function() {
-            console.debug(this);
+//            console.debug(this);
             if ($(this).attr('profond-checked') == "checked") {
                 scene.__objects[0].geometry.faces[this.value].color.setHex($(this).attr('data-old-color'));
                 scene.__objects[0].geometry.colorsNeedUpdate = true;
