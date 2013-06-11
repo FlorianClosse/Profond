@@ -109,7 +109,7 @@ PROFOND = {
          */
         this.init_vertex = function() {
             /** TODO: voir si copie ou non */
-            //var vertices = {};
+//var vertices = {};
             if (this.json != null && this.json['vertices'] != undefined) {
 
                 vertices = this.json['vertices'];
@@ -123,10 +123,8 @@ PROFOND = {
                 }
 
                 var i = 0;
-
                 while (i < vertices.length) {
                     geometry.vertices.push(new THREE.Vector3(vertices[i], vertices[i + 1], vertices[i + 2]));
-
                     if (Xmin > vertices[i]) {
                         Xmin = vertices[i] * 1;
                     }
@@ -165,22 +163,22 @@ PROFOND = {
                     v = geometry.faces.push(face);
                     v = v - 1;
                     //Start population de lstFacesByVertex
-                    /*if (lstFacesByVertex[indices[i]] == undefined)
-                     {
-                     lstFacesByVertex[indices[i]] = [];
-                     }
-                     if (lstFacesByVertex[indices[i + 1]] == undefined)
-                     {
-                     lstFacesByVertex[indices[i + 1]] = [];
-                     }
-                     if (lstFacesByVertex[indices[i + 2]] == undefined)
-                     {
-                     lstFacesByVertex[indices[i + 2]] = [];
-                     }
-                     
-                     lstFacesByVertex[indices[i]].push(v);
-                     lstFacesByVertex[indices[i + 1]].push(v);
-                     lstFacesByVertex[indices[i + 2]].push(v);*/
+                    if (this.lstFacesByVertex[indices[i]] == undefined)
+                    {
+                        this.lstFacesByVertex[indices[i]] = [];
+                    }
+                    if (this.lstFacesByVertex[indices[i + 1]] == undefined)
+                    {
+                        this.lstFacesByVertex[indices[i + 1]] = [];
+                    }
+                    if (this.lstFacesByVertex[indices[i + 2]] == undefined)
+                    {
+                        this.lstFacesByVertex[indices[i + 2]] = [];
+                    }
+
+                    this.lstFacesByVertex[indices[i]].push(v);
+                    this.lstFacesByVertex[indices[i + 1]].push(v);
+                    this.lstFacesByVertex[indices[i + 2]].push(v);
                     i += 3;
                 }
             } else {
@@ -191,38 +189,34 @@ PROFOND = {
             if (this.json != null && this.json['indicesIntl'] != undefined) {
 
                 indicesIntl = this.json['indicesIntl'];
-
                 var i = 0;
                 var v = 0;
-
                 while (i < indicesIntl.length) {
 
                     var face = new THREE.Face3(indicesIntl[i], indicesIntl[i + 1], indicesIntl[i + 2])
                     face.color.setHex(0xEEEEEE);
-
                     v = geometry.faces.push(face);
                     v = v - 1; //récupération de l'indice de la face ajoutée.
 
 
 
                     //Start population de li
-                    if (lstFacesByVertex[indicesIntl[i]] == undefined)
+                    if (this.lstFacesByVertex[indicesIntl[i]] == undefined)
                     {
-                        lstFacesByVertex[indicesIntl[i]] = [];
+                        this.lstFacesByVertex[indicesIntl[i]] = [];
                     }
-                    if (lstFacesByVertex[indicesIntl[i + 1]] == undefined)
+                    if (this.lstFacesByVertex[indicesIntl[i + 1]] == undefined)
                     {
-                        lstFacesByVertex[indicesIntl[i + 1]] = [];
+                        this.lstFacesByVertex[indicesIntl[i + 1]] = [];
                     }
-                    if (lstFacesByVertex[indicesIntl[i + 2]] == undefined)
+                    if (this.lstFacesByVertex[indicesIntl[i + 2]] == undefined)
                     {
-                        lstFacesByVertex[indicesIntl[i + 2]] = [];
+                        this.lstFacesByVertex[indicesIntl[i + 2]] = [];
                     }
 
-                    lstFacesByVertex[indicesIntl[i]].push(v);
-                    lstFacesByVertex[indicesIntl[i + 1]].push(v);
-                    lstFacesByVertex[indicesIntl[i + 2]].push(v);
-
+                    this.lstFacesByVertex[indicesIntl[i]].push(v);
+                    this.lstFacesByVertex[indicesIntl[i + 1]].push(v);
+                    this.lstFacesByVertex[indicesIntl[i + 2]].push(v);
                     i += 3;
                 }
 
@@ -234,38 +228,34 @@ PROFOND = {
             if (this.json != null && this.json['indicesOutl'] != undefined) {
 
                 indicesOutl = this.json['indicesOutl'];
-
                 var i = 0;
                 var v = 0;
-
                 while (i < indicesOutl.length) {
 
                     var face = new THREE.Face3(indicesOutl[i], indicesOutl[i + 1], indicesOutl[i + 2])
                     face.color.setHex(0x00DD00);
-
                     v = geometry.faces.push(face);
                     v = v - 1; //récupération de l'indice de la face ajoutée.
 
 
 
                     //Start population de li
-                    /*if (lstFacesByVertex[indicesOutl[i]] == undefined)
-                     {
-                     lstFacesByVertex[indicesOutl[i]] = [];
-                     }
-                     if (lstFacesByVertex[indicesOutl[i + 1]] == undefined)
-                     {
-                     lstFacesByVertex[indicesOutl[i + 1]] = [];
-                     }
-                     if (lstFacesByVertex[indicesOutl[i + 2]] == undefined)
-                     {
-                     lstFacesByVertex[indicesOutl[i + 2]] = [];
-                     }
-                     
-                     lstFacesByVertex[indicesOutl[i]].push(v);
-                     lstFacesByVertex[indicesOutl[i + 1]].push(v);
-                     lstFacesByVertex[indicesOutl[i + 2]].push(v);
-                     */
+                    if (this.lstFacesByVertex[indicesOutl[i]] == undefined)
+                    {
+                        this.lstFacesByVertex[indicesOutl[i]] = [];
+                    }
+                    if (this.lstFacesByVertex[indicesOutl[i + 1]] == undefined)
+                    {
+                        this.lstFacesByVertex[indicesOutl[i + 1]] = [];
+                    }
+                    if (this.lstFacesByVertex[indicesOutl[i + 2]] == undefined)
+                    {
+                        this.lstFacesByVertex[indicesOutl[i + 2]] = [];
+                    }
+
+                    this.lstFacesByVertex[indicesOutl[i]].push(v);
+                    this.lstFacesByVertex[indicesOutl[i + 1]].push(v);
+                    this.lstFacesByVertex[indicesOutl[i + 2]].push(v);
                     i += 3;
                 }
 
@@ -277,38 +267,34 @@ PROFOND = {
             if (this.json != null && this.json['indicesAtmo'] != undefined) {
 
                 indicesAtmo = this.json['indicesAtmo'];
-
                 var i = 0;
                 var v = 0;
-
                 while (i < indicesAtmo.length) {
 
                     var face = new THREE.Face3(indicesAtmo[i], indicesAtmo[i + 1], indicesAtmo[i + 2])
                     face.color.setHex(0xFF0000);
-
                     v = geometry.faces.push(face);
                     v = v - 1; //récupération de l'indice de la face ajoutée.
 
 
 
                     //Start population de li
-                    /*if (lstFacesByVertex[indicesAtmo[i]] == undefined)
-                     {
-                     lstFacesByVertex[indicesAtmo[i]] = [];
-                     }
-                     if (lstFacesByVertex[indicesAtmo[i + 1]] == undefined)
-                     {
-                     lstFacesByVertex[indicesAtmo[i + 1]] = [];
-                     }
-                     if (lstFacesByVertex[indicesAtmo[i + 2]] == undefined)
-                     {
-                     lstFacesByVertex[indicesAtmo[i + 2]] = [];
-                     }
-                     
-                     lstFacesByVertex[indicesAtmo[i]].push(v);
-                     lstFacesByVertex[indicesAtmo[i + 1]].push(v);
-                     lstFacesByVertex[indicesAtmo[i + 2]].push(v);
-                     */
+                    if (this.lstFacesByVertex[indicesAtmo[i]] == undefined)
+                    {
+                        this.lstFacesByVertex[indicesAtmo[i]] = [];
+                    }
+                    if (this.lstFacesByVertex[indicesAtmo[i + 1]] == undefined)
+                    {
+                        this.lstFacesByVertex[indicesAtmo[i + 1]] = [];
+                    }
+                    if (this.lstFacesByVertex[indicesAtmo[i + 2]] == undefined)
+                    {
+                        this.lstFacesByVertex[indicesAtmo[i + 2]] = [];
+                    }
+
+                    this.lstFacesByVertex[indicesAtmo[i]].push(v);
+                    this.lstFacesByVertex[indicesAtmo[i + 1]].push(v);
+                    this.lstFacesByVertex[indicesAtmo[i + 2]].push(v);
                     i += 3;
                 }
 
@@ -318,74 +304,96 @@ PROFOND = {
         };
         this.init_html_select_faces = function() {
             var main_div = document.createElement('div');
-
             var wall_div = null;
-
             var intl_div = null;
-
             var outl_div = null;
-
             var atmo_div = null;
-
             $(dom).append(main_div);
         };
-
         this.beta_parcours = function() {
             //Condition d'initialisation
-            if (cpt_vertice_taged == 0) {
+            if (PROFOND.lstView[indice_view].cpt_vertice_taged == 0) {
                 var onekey = null;
-                lstFacesByVertex.forEach(function(key, data) {
+                PROFOND.lstView[indice_view].lstFacesByVertex.forEach(function(key, data) {
                     if (onekey == null) {
                         onekey = data;
                     }
                 });
-                StackVertice.push(onekey);
+                PROFOND.lstView[indice_view].StackVertice.push(onekey);
             }
 
-            
 
-            if (cipher_vertice == null) {
-                console.debug(cipher_vertice);
-                cipher_vertice = StackVertice.pop();
-                listingFaces = lstFacesByVertex[cipher_vertice];
-                //console.debug(cipher_vertice);
-                //console.debug(listingFaces);
-                var lstVertexAtFace = [];
-                listingFaces.forEach(function(data, key) {
-                    var vertices_index = [];
-                    vertices_index.push(geometry.faces[data].a);
-                    vertices_index.push(geometry.faces[data].b);
-                    vertices_index.push(geometry.faces[data].c);
-                    vertices_index.forEach(function(data, key) {
-                        if (data != cipher_vertice && lstVertexAtFace.indexOf(data) == -1) {
-                            lstVertexAtFace.push(data);
+
+            if (PROFOND.lstView[indice_view].cipher_vertice == null) {
+
+                do {
+                    PROFOND.lstView[indice_view].cipher_vertice = PROFOND.lstView[indice_view].StackVertice.shift();
+                    if (PROFOND.lstView[indice_view].cipher_vertice == undefined) {
+                        PROFOND.lstView[indice_view].traitement_end = true;
+                        return;
+                    }
+
+                    //récupération des faces adjacentes
+                    PROFOND.lstView[indice_view].listingFaces = this.lstFacesByVertex[this.cipher_vertice];
+                    var lstForDelete = [];
+                    PROFOND.lstView[indice_view].listingFaces.forEach(function(data, key) {
+                        if (PROFOND.lstView[indice_view].lstFacesTaged.indexOf(data) != -1) {
+                            lstForDelete.push(data);
                         }
                     });
-                });
-                //console.debug(lstVertexAtFace);
-                lstVertexAtFace.forEach(function(data) {
-                    StackVertice.push(data);
-                });
-            }
 
-            console.debug(listingFaces);
-            if (listingFaces.length > 0)
+                    for (var i in lstForDelete) {
+                        PROFOND.lstView[indice_view].listingFaces.splice(PROFOND.lstView[indice_view].listingFaces.indexOf(lstForDelete[i]), 1);
+                    }
+
+                    //console.debug(PROFOND.lstView[indice_view].listingFaces);
+                    //console.debug(PROFOND.lstView[indice_view].lstFacesTaged);
+
+                    var lstVertexAtFace = [];
+                    PROFOND.lstView[indice_view].listingFaces.forEach(function(data, key) {
+                        var vertices_index = [];
+                        vertices_index.push(geometry.faces[data].a);
+                        vertices_index.push(geometry.faces[data].b);
+                        vertices_index.push(geometry.faces[data].c);
+                        vertices_index.forEach(function(data, key) {
+                            if (data != PROFOND.lstView[indice_view].cipher_vertice && lstVertexAtFace.indexOf(data) == -1) {
+                                lstVertexAtFace.push(data);
+                            }
+                        });
+                    });
+                    //console.debug(lstVertexAtFace);
+                    lstVertexAtFace.forEach(function(data) {
+                        //console.debug(data);
+                        PROFOND.lstView[indice_view].StackVertice.push(data);
+                    });
+                } while (PROFOND.lstView[indice_view].listingFaces.length == 0);
+
+            }
+            //console.debug(PROFOND.lstView[indice_view].StackVertice);
+            //console.debug(PROFOND.lstView[indice_view].listingFaces);
+            if (PROFOND.lstView[indice_view].listingFaces.length > 0)
             {
-                var indice_face = listingFaces.pop();
-                scene.__objects[0].geometry.faces[indice_face].color.setHex(0x00FF00);
+                var indice_face = PROFOND.lstView[indice_view].listingFaces.shift();
+
+                if (PROFOND.lstView[indice_view].lstFacesTaged.indexOf(indice_face) != -1) {
+                    console.log("WARNING " + indice_face);
+                }
+
+                scene.__objects[0].geometry.faces[indice_face].color.setHex(0xeeeeee * Math.random());
                 scene.__objects[0].geometry.colorsNeedUpdate = true;
                 scene.__objects[0].matrixAutoUpdate = false;
                 scene.__objects[0].updateMatrix();
+                PROFOND.lstView[indice_view].cpt_vertice_taged++;
+                PROFOND.lstView[indice_view].lstFacesTaged.push(indice_face);
             }
 
-            if (listingFaces.length == 0) {
-                cipher_vertice = null;
+            if (PROFOND.lstView[indice_view].listingFaces.length == 0) {
+                PROFOND.lstView[indice_view].cipher_vertice = null;
             }
 
 
 
         };
-
         this.init_camera = function() {
             var camX = ((Xmax * scale - Xmin * scale) / 2) + Xmin * scale;
             var camY = ((Ymax * scale - Ymin * scale) / 2) + Ymin * scale;
@@ -450,9 +458,11 @@ PROFOND = {
                 if (PROFOND.lstView[indice_view].active_stat == true) {
                     stats.update();
                 }
-                if (lock == false && (PROFOND.lstView[indice_view].cpt_tick == 40)) {
+                if (lock == false && (PROFOND.lstView[indice_view].cpt_tick == 1)) {
                     //lock = true;
-                    PROFOND.lstView[indice_view].beta_parcours();
+                    if (PROFOND.lstView[indice_view].traitement_end == false) {
+                        PROFOND.lstView[indice_view].beta_parcours();
+                    }
                     PROFOND.lstView[indice_view].cpt_tick = 0;
                     console.log("tick parcours");
                 }
@@ -467,7 +477,6 @@ PROFOND = {
         this.log = function(message) {
             console.log("PROFOND.MeshView : " + new Date() + " : View : " + indice_view + " : " + message + ".");
         };
-
         /*
          * private : Attributs
          */
@@ -482,9 +491,7 @@ PROFOND = {
         var indice_view = PROFOND.cptView;
         PROFOND.lstView[indice_view] = this;
         PROFOND.cptView++;
-
         this.log("Create");
-
         //Active ou désactive le depth sur le rendu
         this.active_depth = true;
         this.active_stat = false;
@@ -497,7 +504,6 @@ PROFOND = {
         var dom = $(domContainer);
         // public (cf: JQuery Ajax) : copie des données Json
         this.json = null;
-
         //Stockage des extrêmes du mesh
         var Xmin = 0;
         var Xmax = 0;
@@ -505,9 +511,7 @@ PROFOND = {
         var Ymax = 0;
         var Zmin = 0;
         var Zmax = 0;
-
         var scale = 1;
-
         //THREE.js init
         var renderer = new THREE.WebGLRenderer();
         //
@@ -525,30 +529,27 @@ PROFOND = {
         var material = null;
         var light = null;
         var stats = null;
-
         //Stockage des vertices
         var vertices = {};
         var indices = {};
         var indicesIntl = {};
         var indicesOutl = {};
         var indicesAtmo = {};
-
         var Err = false;
         var ErrMessage = "";
-
         //Beta Parcours
-        var StackVertice = [];
-        var cpt_vertice_taged = 0;
-        var lstFacesByVertex = [];
-        var lstFacesChanges = [];
-        var lstVerticesForTag = [];
-        var cpt_a_traiter = 0;
-        var cipher_vertice = null;
-        var listingFaces = null;
-
+        this.StackVertice = [];
+        this.cpt_vertice_taged = 0;
+        this.lstFacesByVertex = [];
+        this.lstFacesChanges = [];
+        this.lstVerticesForTag = [];
+        this.lstFacesTaged = [];
+        this.cpt_a_traiter = 0;
+        this.cipher_vertice = null;
+        this.listingFaces = [];
+        this.traitement_end = false;
         var lock = false;
         this.cpt_tick = 0;
-
     }
 
 };
